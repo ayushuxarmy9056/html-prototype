@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Voltkart – Electronics Store Prototype</title>
+<script src="https://beta.uxarmy.com/proto/v1/uxarmy-proto.js" defer></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#eef1f5;--card:#fff;--ink:#12203a;--mute:#5d6b82;--line:#d8dee8;--acc:#2a4bff;--acc2:#ffb703;--ok:#12805c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1524;--card:#17213a;--ink:#eaf0ff;--mute:#93a1bd;--line:#2a3757;--acc:#6f8bff;--ok:#3ccf9a}}
+:root[data-theme="dark"]{--bg:#0e1524;--card:#17213a;--ink:#eaf0ff;--mute:#93a1bd;--line:#2a3757;--acc:#6f8bff;--ok:#3ccf9a}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Sora,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select{font:inherit;color:inherit}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ink);color:#fff;display:flex;gap:14px;align-items:center;padding:12px 20px}
+header b{font-size:20px;font-weight:800;cursor:pointer;letter-spacing:-.5px}header b i{color:var(--acc2);font-style:normal}
+header input{flex:1;max-width:460px;padding:9px 14px;border-radius:8px;border:0;background:#fff;color:#12203a}
+header nav{margin-left:auto;display:flex;gap:6px}
+.hb{background:none;border:1px solid #ffffff44;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer}
+.hb:hover,.hb:focus-visible{background:#ffffff22;outline:2px solid var(--acc2)}
+main{max-width:1100px;margin:0 auto;padding:20px}
+h1,h2,h3{margin:0 0 10px;letter-spacing:-.4px}
+.hero{background:var(--ink);color:#fff;border-radius:14px;padding:30px;display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:20px}
+.hero h1{font-size:30px;max-width:15em;font-weight:800}.hero p{color:#b8c3dc;margin:0 0 14px}.hero .big{font-size:72px}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:9px;padding:10px 18px;font-weight:600;cursor:pointer}
+.btn.alt{background:var(--acc2);color:#12203a}.btn.ghost{background:none;border:1px solid var(--line);color:var(--ink)}
+.btn:disabled{opacity:.5;cursor:not-allowed}.btn:focus-visible,.chip:focus-visible,.card:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.chip{border:1px solid var(--line);background:var(--card);padding:7px 14px;border-radius:99px;cursor:pointer}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+select{padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--card);margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer}
+.card:hover{border-color:var(--acc)}
+.pic{height:150px;display:grid;place-items:center;font-size:64px}
+.card .in{padding:12px 14px}.card h3{font-size:15px;margin:0}.mute{color:var(--mute);font-size:13px}
+.price{font-weight:800;font-size:18px}.old{text-decoration:line-through;color:var(--mute);font-size:13px;margin-left:6px;font-weight:400}
+.off{color:var(--ok);font-size:13px;font-weight:600;margin-left:6px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}.sidegrid{display:grid;grid-template-columns:1fr 330px;gap:20px;align-items:start}
+@media(max-width:800px){.two,.sidegrid{grid-template-columns:1fr}.hero{flex-direction:column;align-items:flex-start}header{flex-wrap:wrap}}
+.opt{display:inline-block;border:1px solid var(--line);padding:6px 12px;border-radius:8px;margin:0 6px 6px 0;cursor:pointer;background:none}
+.opt.on{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc);font-weight:600}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:8px}
+.qty button{border:0;background:none;width:32px;height:32px;cursor:pointer;font-size:16px}.qty span{min-width:26px;text-align:center}
+.row{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.row:last-child{border:0}
+.row .t{width:64px;height:64px;border-radius:10px;display:grid;place-items:center;font-size:32px;flex:none}.row .g{flex:1}
+.sum div{display:flex;justify-content:space-between;padding:4px 0}.sum .tot{border-top:1px solid var(--line);margin-top:6px;padding-top:10px;font-weight:800;font-size:18px}
+.steps{display:flex;gap:6px;margin-bottom:16px}.steps div{flex:1;padding:8px;text-align:center;border-bottom:3px solid var(--line);color:var(--mute);font-size:13px}
+.steps .on{border-color:var(--acc);color:var(--ink);font-weight:600}.steps .done{border-color:var(--ok);color:var(--ok)}
+label{display:block;font-size:13px;color:var(--mute);margin-bottom:10px}
+label input{display:block;width:100%;padding:9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);margin-top:3px}
+label input.bad{border-color:#d33}.err{color:#d33;font-size:13px;min-height:18px}
+.pay{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer}
+.pay.on{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
+.tl{list-style:none;margin:0;padding:0}.tl li{position:relative;padding:0 0 22px 34px;color:var(--mute)}
+.tl li:before{content:"";position:absolute;left:0;top:2px;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);background:var(--card)}
+.tl li:after{content:"";position:absolute;left:9px;top:24px;bottom:0;width:2px;background:var(--line)}.tl li:last-child:after{display:none}
+.tl li.d{color:var(--ink)}.tl li.d:before{background:var(--ok);border-color:var(--ok)}.tl li.d:after{background:var(--ok)}
+.tl li.c:before{border-color:var(--acc);box-shadow:0 0 0 4px #2a4bff33}.tl li.c{color:var(--ink);font-weight:600}
+.badge{background:#12805c22;color:var(--ok);padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:10px;z-index:9}
+.crumb{color:var(--mute);cursor:pointer;background:none;border:0;padding:0;margin-bottom:12px}
+.empty{text-align:center;padding:50px 10px;color:var(--mute)}
+@media(prefers-reduced-motion:no-preference){.toast{animation:up .25s}@keyframes up{from{opacity:0;transform:translate(-50%,10px)}}}
+</style></head><body>
+<header><b onclick="go('home')">volt<i>kart</i></b><input id="q" placeholder="Search phones, laptops, audio…" aria-label="Search products"><nav>
+<button class="hb" onclick="go('orders')">Orders</button><button class="hb" onclick="go('cart')" id="cartBtn">Cart (0)</button></nav></header>
+<main id="app"></main>
+<script>
+const P=[
+{id:1,n:"Nova X5 Smartphone",c:"Phones",e:"📱",p:34999,o:39999,b:"#dfe7ff",r:4.5,v:{Storage:["128 GB","256 GB (+₹3,000)"],Colour:["Midnight","Silver"]},d:"6.6\" AMOLED, 120 Hz, 50 MP camera, 5000 mAh battery."},
+{id:2,n:"Zephyr Pro 14 Laptop",c:"Laptops",e:"💻",p:68990,o:79990,b:"#e3f4ea",r:4.6,v:{RAM:["16 GB","32 GB (+₹8,000)"],Colour:["Graphite","Sand"]},d:"14\" 2.8K display, 12-core processor, 1 TB SSD, 18 h battery."},
+{id:3,n:"AeroBuds ANC Earbuds",c:"Audio",e:"🎧",p:4499,o:6999,b:"#ffeccc",r:4.3,v:{Colour:["Black","White","Blue"]},d:"Active noise cancellation, 32 h total playback, IPX5."},
+{id:4,n:"PulseFit Smartwatch",c:"Wearables",e:"⌚",p:6999,o:9999,b:"#f6dfff",r:4.2,v:{Strap:["Silicone","Metal (+₹1,500)"],Colour:["Black","Rose"]},d:"1.8\" display, GPS, SpO2 and heart-rate tracking, 7-day battery."},
+{id:5,n:"Lumen 4K Smart TV 43\"",c:"TV & Home",e:"📺",p:27990,o:36990,b:"#dff3f7",r:4.4,v:{Size:["43\"","50\" (+₹8,000)"]},d:"4K UHD, Dolby Audio, built-in streaming apps, voice remote."},
+{id:6,n:"Tab S9 Lite Tablet",c:"Phones",e:"📲",p:21499,o:25999,b:"#e8e8ff",r:4.1,v:{Storage:["64 GB","128 GB (+₹2,500)"],Colour:["Grey","Mint"]},d:"11\" display, quad speakers, stylus support, 8000 mAh battery."},
+{id:7,n:"BoomBox 20W Speaker",c:"Audio",e:"🔊",p:2999,o:4499,b:"#ffe1e1",r:4.4,v:{Colour:["Red","Black"]},d:"Waterproof Bluetooth speaker, 12 h playtime, party-link."},
+{id:8,n:"SnapPro Mirrorless Camera",c:"Cameras",e:"📷",p:52990,o:59990,b:"#e9efe0",r:4.7,v:{Kit:["Body only","With 18-55 mm lens (+₹9,000)"]},d:"24 MP APS-C sensor, 4K video, 5-axis stabilisation."},
+{id:9,n:"Charge+ 20000 mAh Power Bank",c:"Accessories",e:"🔋",p:1799,o:2499,b:"#fff3c4",r:4.3,v:{Colour:["Black","Blue"]},d:"65 W fast charging, 3 ports, charges a laptop."},
+{id:10,n:"Keyra Mechanical Keyboard",c:"Accessories",e:"⌨️",p:3499,o:4999,b:"#dde9f0",r:4.5,v:{Switch:["Red","Blue","Brown"]},d:"Hot-swappable, RGB, wireless + wired."}];
+const CATS=["All",...new Set(P.map(p=>p.c))];
+const inr=n=>"₹"+Math.round(n).toLocaleString("en-IN");
+const extra=s=>{const m=/\(\+₹([\d,]+)\)/.exec(s||"");return m?+m[1].replace(",",""):0};
+const STAGES=["Order placed","Packed","Shipped","Out for delivery","Delivered"];
+let S={view:"home",cat:"All",sort:"rel",q:"",pid:null,sel:{},qty:1,cart:[],step:1,ship:{name:"",phone:"",pin:"",addr:"",city:""},speed:"std",pay:"upi",coupon:"",orders:[],oid:null};
+try{const x=JSON.parse(localStorage.getItem("vk")||"null");if(x){S.cart=x.cart||[];S.orders=x.orders||[]}}catch(e){}
+const save=()=>{try{localStorage.setItem("vk",JSON.stringify({cart:S.cart,orders:S.orders}))}catch(e){}};
+const $=s=>document.querySelector(s);
+function toast(m){const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
+function go(v,x){S.view=v;if(v==="product"){S.pid=x;S.sel={};S.qty=1;const p=P.find(a=>a.id===x);for(const k in p.v)S.sel[k]=p.v[k][0]}
+if(v==="track")S.oid=x;if(v==="checkout")S.step=1;scrollTo(0,0);render()}
+const unit=(p,sel)=>p.p+Object.values(sel).reduce((a,s)=>a+extra(s),0);
+const line=i=>{const p=P.find(a=>a.id===i.id);return unit(p,i.sel)*i.q};
+const sub=()=>S.cart.reduce((a,i)=>a+line(i),0);
+const disc=()=>S.coupon==="VOLT10"?Math.min(sub()*.1,2000):0;
+const shipFee=()=>S.speed==="exp"?149:(sub()>=1000?0:49);
+const gst=()=>(sub()-disc())*.18/1.18;
+const total=()=>sub()-disc()+shipFee();
+function addCart(buy){const p=P.find(a=>a.id===S.pid);const k=JSON.stringify(S.sel);const f=S.cart.find(i=>i.id===p.id&&JSON.stringify(i.sel)===k);
+f?f.q+=S.qty:S.cart.push({id:p.id,sel:{...S.sel},q:S.qty});save();buy?go("checkout"):(toast("Added to cart"),render())}
+function card(p){return `<div class="card" tabindex="0" role="button" onclick="go('product',${p.id})" onkeydown="if(event.key==='Enter')go('product',${p.id})"><div class="pic" style="background:${p.b}">${p.e}</div><div class="in"><h3>${p.n}</h3><div class="mute">★ ${p.r} · ${p.c}</div><div style="margin-top:6px"><span class="price">${inr(p.p)}</span><span class="old">${inr(p.o)}</span><span class="off">${Math.round((1-p.p/p.o)*100)}% off</span></div></div></div>`}
+function vHome(){let l=P.filter(p=>(S.cat==="All"||p.c===S.cat)&&p.n.toLowerCase().includes(S.q.toLowerCase()));
+if(S.sort==="lo")l.sort((a,b)=>a.p-b.p);if(S.sort==="hi")l.sort((a,b)=>b.p-a.p);if(S.sort==="rt")l.sort((a,b)=>b.r-a.r);
+return `<div class="hero"><div><h1>Festive tech sale: up to 40% off</h1><p>Free delivery over ₹1,000. Use code <b>VOLT10</b> at checkout for 10% extra off.</p><button class="btn alt" onclick="document.getElementById('list').scrollIntoView({behavior:'smooth'})">Shop deals</button></div><div class="big">🛍️</div></div>
+<div class="bar">${CATS.map(c=>`<button class="chip ${c===S.cat?"on":""}" onclick="S.cat='${c}';render()">${c}</button>`).join("")}
+<select aria-label="Sort" onchange="S.sort=this.value;render()"><option value="rel">Sort: Featured</option><option value="lo" ${S.sort==="lo"?"selected":""}>Price: low to high</option><option value="hi" ${S.sort==="hi"?"selected":""}>Price: high to low</option><option value="rt" ${S.sort==="rt"?"selected":""}>Top rated</option></select></div>
+<div id="list" class="grid">${l.map(card).join("")||'<div class="empty">No products match. Try another search or category.</div>'}</div>`}
+function vProduct(){const p=P.find(a=>a.id===S.pid),u=unit(p,S.sel);
+return `<button class="crumb" onclick="go('home')">← Back to products</button><div class="panel two"><div class="pic" style="background:${p.b};border-radius:12px;height:340px;font-size:130px">${p.e}</div><div>
+<h2>${p.n}</h2><div class="mute">★ ${p.r} · ${p.c}</div><p>${p.d}</p><div style="margin:10px 0"><span class="price" style="font-size:28px">${inr(u)}</span><span class="old">${inr(p.o)}</span></div>
+${Object.entries(p.v).map(([k,o])=>`<div class="mute">${k}</div><div>${o.map(x=>`<button class="opt ${S.sel[k]===x?"on":""}" onclick="S.sel['${k}']='${x}';render()">${x}</button>`).join("")}</div>`).join("")}
+<div class="mute" style="margin-top:8px">Quantity</div><div class="qty"><button aria-label="Less" onclick="S.qty=Math.max(1,S.qty-1);render()">−</button><span>${S.qty}</span><button aria-label="More" onclick="S.qty=Math.min(5,S.qty+1);render()">+</button></div>
+<div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" onclick="addCart(false)">Add to cart</button><button class="btn alt" onclick="addCart(true)">Buy now</button></div>
+<p class="mute">🚚 Delivery in 3–5 days · 7-day replacement · 1-year warranty</p></div></div>`}
+function vCart(){if(!S.cart.length)return `<div class="empty panel"><div style="font-size:50px">🛒</div><h2>Your cart is empty</h2><p>Add an item to get started.</p><button class="btn" onclick="go('home')">Browse products</button></div>`;
+return `<h2>Your cart</h2><div class="sidegrid"><div class="panel">${S.cart.map((i,x)=>{const p=P.find(a=>a.id===i.id);return `<div class="row"><div class="t" style="background:${p.b}">${p.e}</div><div class="g"><b>${p.n}</b><div class="mute">${Object.values(i.sel).join(" · ")}</div><div class="qty" style="margin-top:6px"><button onclick="chg(${x},-1)" aria-label="Less">−</button><span>${i.q}</span><button onclick="chg(${x},1)" aria-label="More">+</button></div> <button class="crumb" onclick="S.cart.splice(${x},1);save();render()">Remove</button></div><b>${inr(line(i))}</b></div>`}).join("")}</div>${summary(true)}</div>`}
+function chg(x,d){S.cart[x].q=Math.max(1,Math.min(5,S.cart[x].q+d));save();render()}
+function summary(btn){return `<div class="panel sum"><h3>Price details</h3><div><span>Subtotal</span><span>${inr(sub())}</span></div>${disc()?`<div style="color:var(--ok)"><span>Coupon ${S.coupon}</span><span>−${inr(disc())}</span></div>`:""}<div><span>Delivery</span><span>${shipFee()?inr(shipFee()):"Free"}</span></div><div class="mute"><span>Includes GST (18%)</span><span>${inr(gst())}</span></div><div class="tot"><span>Total</span><span>${inr(total())}</span></div>
+<div style="display:flex;gap:6px;margin:12px 0"><input id="cp" placeholder="Coupon code" value="${S.coupon}" style="flex:1;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg)"><button class="btn ghost" onclick="coupon()">Apply</button></div>${btn?`<button class="btn" style="width:100%" onclick="go('checkout')">Proceed to checkout</button>`:""}</div>`}
+function coupon(){const v=$("#cp").value.trim().toUpperCase();if(v==="VOLT10"){S.coupon=v;toast("Coupon applied")}else{S.coupon="";toast(v?"Invalid code. Try VOLT10":"Coupon removed")}render()}
+function vCheckout(){if(!S.cart.length)return vCart();const st=["Address","Delivery","Payment","Review"];
+const head=`<h2>Checkout</h2><div class="steps">${st.map((s,i)=>`<div class="${i+1===S.step?"on":i+1<S.step?"done":""}">${i+1<S.step?"✓ ":""}${s}</div>`).join("")}</div>`;let b="";const sh=S.ship;
+if(S.step===1)b=`<div class="panel"><h3>Delivery address</h3><div class="two" style="gap:0 14px"><label>Full name<input id="f_name" value="${sh.name}"></label><label>Mobile number<input id="f_phone" inputmode="numeric" maxlength="10" value="${sh.phone}"></label><label>PIN code<input id="f_pin" inputmode="numeric" maxlength="6" value="${sh.pin}"></label><label>City<input id="f_city" value="${sh.city}"></label></div><label>Address<input id="f_addr" value="${sh.addr}"></label><div class="err" id="err"></div><button class="btn" onclick="saveAddr()">Continue</button> <button class="btn ghost" onclick="fill()">Use sample address</button></div>`;
+if(S.step===2)b=`<div class="panel"><h3>Delivery speed</h3>${[["std","Standard · 3–5 days",sub()>=1000?"Free":"₹49"],["exp","Express · next day","₹149"]].map(([k,t,f])=>`<div class="pay ${S.speed===k?"on":""}" onclick="S.speed='${k}';render()"><span style="flex:1">${t}</span><b>${f}</b></div>`).join("")}<button class="btn" onclick="S.step=3;render()">Continue</button></div>`;
+if(S.step===3)b=`<div class="panel"><h3>Payment method</h3>${[["upi","UPI (GPay, PhonePe, Paytm)"],["card","Credit / Debit card"],["cod","Cash on delivery"]].map(([k,t])=>`<div class="pay ${S.pay===k?"on":""}" onclick="S.pay='${k}';render()">${t}</div>`).join("")}<p class="mute">This is a prototype: no real payment is taken.</p><button class="btn" onclick="S.step=4;render()">Review order</button></div>`;
+if(S.step===4)b=`<div class="panel"><h3>Review your order</h3>${S.cart.map(i=>{const p=P.find(a=>a.id===i.id);return `<div class="row"><div class="t" style="background:${p.b}">${p.e}</div><div class="g"><b>${p.n}</b><div class="mute">${Object.values(i.sel).join(" · ")} · Qty ${i.q}</div></div><b>${inr(line(i))}</b></div>`}).join("")}<p class="mute">Ship to <b>${sh.name}</b>, ${sh.addr}, ${sh.city} ${sh.pin}<br>Payment: ${{upi:"UPI",card:"Card",cod:"Cash on delivery"}[S.pay]} · ${S.speed==="exp"?"Express":"Standard"} delivery</p><button class="btn alt" onclick="place()">Place order · ${inr(total())}</button></div>`;
+return head+`<div class="sidegrid"><div>${b}${S.step>1?`<button class="crumb" onclick="S.step--;render()">← Back</button>`:""}</div>${summary(false)}</div>`}
+function saveAddr(){const g=i=>$("#f_"+i).value.trim();const v={name:g("name"),phone:g("phone"),pin:g("pin"),city:g("city"),addr:g("addr")};S.ship=v;
+const bad=[];if(v.name.length<2)bad.push("name");if(!/^[6-9]\d{9}$/.test(v.phone))bad.push("phone");if(!/^\d{6}$/.test(v.pin))bad.push("pin");if(!v.city)bad.push("city");if(v.addr.length<5)bad.push("addr");
+if(bad.length){bad.forEach(k=>$("#f_"+k).classList.add("bad"));$("#err").textContent="Check the highlighted fields: mobile needs 10 digits, PIN needs 6 digits.";return}S.step=2;render()}
+function fill(){S.ship={name:"Aarav Sharma",phone:"9876543210",pin:"302001",city:"Jaipur",addr:"12, MI Road, C-Scheme"};render()}
+function place(){const id="VK"+Math.floor(100000+Math.random()*900000);const t=Date.now();
+S.orders.unshift({id,t,items:S.cart.map(i=>({...i,price:line(i)})),total:total(),sub:sub(),disc:disc(),fee:shipFee(),gst:gst(),ship:S.ship,pay:S.pay,speed:S.speed,stage:0,times:[t]});
+S.cart=[];S.coupon="";save();S.oid=id;S.view="done";scrollTo(0,0);render()}
+const ord=()=>S.orders.find(o=>o.id===S.oid);
+function vDone(){const o=ord();return `<div class="panel" style="text-align:center"><div style="font-size:54px">✅</div><h2>Order placed</h2><p>Thanks, ${o.ship.name.split(" ")[0]}. Your order <b>#${o.id}</b> for ${inr(o.total)} is confirmed. A confirmation was sent to your mobile.</p><button class="btn" onclick="go('track','${o.id}')">Track order</button> <button class="btn ghost" onclick="go('home')">Continue shopping</button></div>`}
+function vTrack(){const o=ord();if(!o)return vOrders();const eta=new Date(o.t+(o.speed==="exp"?1:4)*864e5).toLocaleDateString("en-IN",{day:"numeric",month:"short"});
+const tm=i=>o.times[i]?new Date(o.times[i]).toLocaleString("en-IN",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"Pending";
+return `<button class="crumb" onclick="go('orders')">← All orders</button><div class="sidegrid"><div><div class="panel"><div style="display:flex;justify-content:space-between"><h2>Order #${o.id}</h2><span class="badge">${STAGES[o.stage]}</span></div>
+<p class="mute">${o.stage===4?"Delivered":"Expected by "+eta}</p><ul class="tl">${STAGES.map((s,i)=>`<li class="${i<o.stage?"d":i===o.stage?(o.stage===4?"d":"c"):""}">${s}<div class="mute" style="font-weight:400">${tm(i)}</div></li>`).join("")}</ul>
+<button class="btn alt" ${o.stage>=4?"disabled":""} onclick="adv()">Simulate next update</button> <span class="mute">(demo control)</span></div>
+<div class="panel"><h3>Items</h3>${o.items.map(i=>{const p=P.find(a=>a.id===i.id);return `<div class="row"><div class="t" style="background:${p.b}">${p.e}</div><div class="g"><b>${p.n}</b><div class="mute">${Object.values(i.sel).join(" · ")} · Qty ${i.q}</div></div><b>${inr(i.price)}</b></div>`}).join("")}</div></div>
+<div><div class="panel sum"><h3>Invoice</h3><div><span>Subtotal</span><span>${inr(o.sub)}</span></div>${o.disc?`<div><span>Discount</span><span>−${inr(o.disc)}</span></div>`:""}<div><span>Delivery</span><span>${o.fee?inr(o.fee):"Free"}</span></div><div class="mute"><span>GST included</span><span>${inr(o.gst)}</span></div><div class="tot"><span>Paid</span><span>${inr(o.total)}</span></div><p class="mute">${{upi:"UPI",card:"Card",cod:"Pay on delivery"}[o.pay]}</p></div>
+<div class="panel"><h3>Delivering to</h3><p class="mute">${o.ship.name}<br>${o.ship.addr}, ${o.ship.city} ${o.ship.pin}<br>📞 ${o.ship.phone}</p>${o.stage<2?`<button class="btn ghost" onclick="cancel('${o.id}')">Cancel order</button>`:""}</div></div></div>`}
+function adv(){const o=ord();if(o.stage<4){o.stage++;o.times[o.stage]=Date.now();save();toast("Status: "+STAGES[o.stage]);render()}}
+function cancel(id){S.orders=S.orders.filter(o=>o.id!==id);save();toast("Order cancelled. Refund in 3–5 days");go("orders")}
+function vOrders(){if(!S.orders.length)return `<div class="empty panel"><div style="font-size:50px">📦</div><h2>No orders yet</h2><p>Orders you place will show up here.</p><button class="btn" onclick="go('home')">Start shopping</button></div>`;
+return `<h2>Your orders</h2>`+S.orders.map(o=>`<div class="panel" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><div style="flex:1"><b>#${o.id}</b><div class="mute">${o.items.map(i=>P.find(a=>a.id===i.id).n).join(", ")}</div></div><span class="badge">${STAGES[o.stage]}</span><b>${inr(o.total)}</b><button class="btn" onclick="go('track','${o.id}')">Track</button></div>`).join("")}
+function render(){$("#cartBtn").textContent="Cart ("+S.cart.reduce((a,i)=>a+i.q,0)+")";
+$("#app").innerHTML=({home:vHome,product:vProduct,cart:vCart,checkout:vCheckout,done:vDone,track:vTrack,orders:vOrders})[S.view]()}
+$("#q").addEventListener("input",e=>{S.q=e.target.value;if(S.view!=="home")S.view="home";render();e.target.focus()});
+render();
+</script></body></html>
